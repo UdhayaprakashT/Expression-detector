@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+#container {
+    margin: 0px auto;
+    width: 500px;
+    height: 375px;
+    border: 10px #333 solid;
+}
+#videoElement {
+    width: 500px;
+    height: 375px;
+    background-color: #666;
+}
+#
+</style>
+
+<body>
+    <div id="container">
+        <video autoplay="true" id="videoElement">
+
+        </video>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <form action="/face-detector/detect">
+        <center><button onclick="vidOff()">Detect</button></center>
+    </form>
+    <script>
+        var video = document.querySelector("#videoElement");
+        var localstream;
+
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+
+if (navigator.getUserMedia) {
+    navigator.getUserMedia({video: true}, handleVideo, videoError);
+}
+
+function handleVideo(stream) {
+    video.src = window.URL.createObjectURL(stream);
+    localstream = stream
+}
+
+function videoError(e) {
+    // do something
+}
+
+function vidOff() {
+  //clearInterval(theDrawLoop);
+  //ExtensionData.vidStatus = 'off';
+  video.pause();
+  video.src = "";
+  localstream.getTracks()[0].stop();
+}
+    </script>
+
+</body>
+</html>
